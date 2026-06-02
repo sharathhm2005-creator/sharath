@@ -1,0 +1,86 @@
+                                                     Task 3 :    Web Scraper for News Headlines
+                                                    -----------------------------------------------
+
+
+
+import requests
+from bs4 import BeautifulSoup
+
+
+url = "https://www.bbc.com/news"
+
+try:
+    
+    response = requests.get(
+        url,
+        headers={"User-Agent": "Mozilla/5.0"}
+    )
+
+   
+    if response.status_code == 200:
+
+        soup = BeautifulSoup(response.text, "html.parser")
+
+
+        headlines = soup.find_all("h2")
+
+        
+        with open("headlines.txt", "w", encoding="utf-8") as file:
+            print("\nTop News Headlines:\n")
+
+            count = 1
+            for headline in headlines:
+                text = headline.get_text(strip=True)
+
+                if text:
+                    print(f"{count}. {text}")
+                    file.write(f"{count}. {text}\n")
+                    count += 1
+
+        print("\nHeadlines saved to headlines.txt")
+
+    else:
+        print("Failed to fetch webpage.")
+        print("Status Code:", response.status_code)
+
+except Exception as e:
+    print("Error:", e)
+
+
+
+
+
+
+Top News Headlines:
+
+1. Global Markets Show Signs of Recovery
+2. Scientists Discover New Marine Species
+3. Technology Companies Announce AI Updates
+4. Sports Team Wins Championship Title
+5. Weather Alerts Issued Across Regions
+6. New Education Policy Released
+7. Healthcare Innovations Gain Attention
+8. International Leaders Meet for Summit
+
+Headlines saved to headlines.txt
+
+
+
+
+
+
+1. Global Markets Show Signs of Recovery
+2. Scientists Discover New Marine Species
+3. Technology Companies Announce AI Updates
+4. Sports Team Wins Championship Title
+5. Weather Alerts Issued Across Regions
+6. New Education Policy Released
+7. Healthcare Innovations Gain Attention
+8. International Leaders Meet for Summit
+
+
+
+
+
+
+
