@@ -1,0 +1,211 @@
+                                            Task 6 :  Build a Portfolio Website with Flask
+                                            -----------------------------------------------
+
+
+
+
+from flask import Flask, render_template, request
+
+app = Flask(__name__)
+
+@app.route('/')
+def home():
+    profile = {
+        "name": "Sharath H M",
+        "role": "Python Developer",
+        "about": "I am a passionate Python developer interested in Web Development, Data Science, and AI."
+    }
+    return render_template("index.html", profile=profile)
+
+@app.route('/contact', methods=['POST'])
+def contact():
+    name = request.form['name']
+    email = request.form['email']
+    message = request.form['message']
+
+    return f"""
+    <h2>Thank You!</h2>
+    <p>Name: {name}</p>
+    <p>Email: {email}</p>
+    <p>Message: {message}</p>
+    <a href="/">Go Back</a>
+    """
+
+if __name__ == '__main__':
+    app.run(debug=True)
+
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Portfolio Website</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <div class="container">
+
+        <h1>{{ profile.name }}</h1>
+        <h2>{{ profile.role }}</h2>
+
+        <section>
+            <h3>About Me</h3>
+            <p>{{ profile.about }}</p>
+        </section>
+
+        <section>
+            <h3>Skills</h3>
+            <ul>
+                <li>Python</li>
+                <li>Flask</li>
+                <li>HTML</li>
+                <li>CSS</li>
+                <li>SQL</li>
+            </ul>
+        </section>
+
+        <section>
+            <h3>Projects</h3>
+            <ul>
+                <li>Calculator App</li>
+                <li>To-Do List Manager</li>
+                <li>News Web Scraper</li>
+                <li>REST API with Flask</li>
+            </ul>
+        </section>
+
+        <section>
+            <h3>Contact Me</h3>
+
+            <form action="/contact" method="POST">
+
+                <input type="text"
+                       name="name"
+                       placeholder="Enter Your Name"
+                       required>
+
+                <input type="email"
+                       name="email"
+                       placeholder="Enter Your Email"
+                       required>
+
+                <textarea name="message"
+                          placeholder="Enter Message"
+                          required></textarea>
+
+                <button type="submit">Send Message</button>
+
+            </form>
+
+        </section>
+
+    </div>
+
+</body>
+</html>
+
+
+
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    width: 70%;
+    margin: auto;
+    background: white;
+    padding: 20px;
+    margin-top: 30px;
+    border-radius: 10px;
+}
+
+h1 {
+    color: #2c3e50;
+}
+
+h2 {
+    color: #3498db;
+}
+
+h3 {
+    color: #34495e;
+}
+
+input,
+textarea {
+    width: 100%;
+    padding: 10px;
+    margin-top: 8px;
+    margin-bottom: 12px;
+}
+
+button {
+    background: #3498db;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #2980b9;
+}
+
+
+
+
+-----------------------------------
+Sharath H M
+Python Developer
+-----------------------------------
+
+About Me
+I am a passionate Python developer interested
+in Web Development, Data Science, and AI.
+
+Skills
+• Python
+• Flask
+• HTML
+• CSS
+• SQL
+
+Projects
+• Calculator App
+• To-Do List Manager
+• News Web Scraper
+• REST API with Flask
+
+Contact Me
+[Name Field]
+[Email Field]
+[Message Box]
+[Send Message Button]
+
+
+
+
+Name    : Sharath
+Email   : sharath@gmail.com
+Message : Interested in Python Development
+
+
+
+
+Thank You!
+
+Name: Sharath
+Email: sharath@gmail.com
+Message: Interested in Python Development
+
+Go Back
+
+
+
+
